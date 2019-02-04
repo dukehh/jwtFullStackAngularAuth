@@ -1,0 +1,63 @@
+<div class="container">
+  <h1>Todo-ID: {{ todo.id }}</h1>
+  <div class="alert alert-warning" *ngIf="todoForm.dirty && todoForm.invalid">
+    <h3>Fill in -Form- correctly!</h3>
+  </div>
+  <div
+    class="alert alert-warning"
+    *ngIf="description.dirty && description.invalid"
+  >
+    <h3>Fill in -Description with min 5 chars- correctly!</h3>
+  </div>
+  <div
+    class="alert alert-warning"
+    *ngIf="targetDate.dirty && targetDate.invalid"
+  >
+    <h3>Fill in -Target Date- correctly!</h3>
+  </div>
+  <form (ngSubmit)="!todoForm.invalid && createTodo()" #todoForm="ngForm">
+    <fieldset class="form-group">
+      <label>Description</label>
+      <input
+        type="text"
+        #description="ngModel"
+        class="form-control"
+        name="description"
+        required="required"
+        minlength="5"
+        [(ngModel)]="todo.description"
+      />
+    </fieldset>
+    <fieldset class="form-group">
+      <label>Target Date:</label>
+      <input
+        type="date"
+        #targetDate="ngModel"
+        class="form-control"
+        name="targetDate"
+        required="required"
+        [ngModel]="todo.targetDate | date: 'yyyy-MM-dd'"
+        (ngModelChange)="todo.targetDate = $event"
+      />
+    </fieldset>
+    <button
+      *ngIf="todo.id > 0 && !todoForm.invalid"
+      type="button"
+      class="btn btn-outline-success"
+      (click)="updateTodo()"
+    >
+      Update
+    </button>
+
+    <button
+      *ngIf="!todoForm.invalid"
+      type="submit"
+      class="btn btn-outline-primary"
+    >
+      Add
+    </button>
+    <button type="reset" class="btn btn-outline-dark" (click)="cancel()">
+      Cancel
+    </button>
+  </form>
+</div>

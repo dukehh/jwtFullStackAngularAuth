@@ -1,0 +1,22 @@
+<div class="container">
+  <h1>Welcome {{ name }}!</h1>
+  <p>
+    You can manage your Todos
+    <a [routerLink]="['/todos']" routerLinkActive="router-link-active">here</a>
+  </p>
+</div>
+<div class="container">
+  <p>Click here to get a customized WelcomeMessage</p>
+  Name: <input type="text" [(ngModel)]="name" />
+  <button
+    type="button"
+    autofocus="autofocus"
+    *ngIf="name"
+    (click)="getWelcomeMessageWithParameter()"
+    class="btn btn-success active"
+  >
+    Get Welcome Message
+  </button>
+  <h2 *ngIf="message" class="alert alert-success">{{ message }}</h2>
+  <h2 *ngIf="errMessage" class="alert alert-danger">{{ errMessage }}</h2>
+</div>
